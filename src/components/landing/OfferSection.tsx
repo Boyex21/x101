@@ -62,7 +62,7 @@ const OfferSection = () => {
             ))}
           </div>
           <p className="text-center text-muted-foreground text-xs mt-4">
-            Compatible con carros, motos y camiones · Renovación: solo $70/año
+            Compatible con carros, motos y camiones · Renovación anual: $79 (a partir del 2do año)
           </p>
         </div>
 
