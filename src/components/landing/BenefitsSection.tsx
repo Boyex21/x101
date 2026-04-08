@@ -12,9 +12,10 @@ const benefits = [
 const BenefitsSection = () => (
   <section className="px-5 py-16 max-w-lg mx-auto">
     <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-      <h2 className="text-3xl font-black text-center mb-10">
+      <h2 className="text-3xl font-black text-center mb-2">
         No solo rastreo. <span className="text-primary">Paz mental.</span>
       </h2>
+      <p className="text-center text-muted-foreground text-sm mb-10">Con America GPS, siempre sabrás dónde está tu vehículo</p>
       <div className="grid grid-cols-2 gap-4 mb-10">
         {benefits.map((b, i) => (
           <motion.div
@@ -33,7 +34,7 @@ const BenefitsSection = () => (
           </motion.div>
         ))}
       </div>
-      <img src={appMockup} alt="App de rastreo GPS" loading="lazy" width={400} height={400} className="mx-auto max-w-[280px]" />
+      <img src={appMockup} alt="App de rastreo America GPS" loading="lazy" width={400} height={400} className="mx-auto max-w-[280px]" />
     </motion.div>
   </section>
 );

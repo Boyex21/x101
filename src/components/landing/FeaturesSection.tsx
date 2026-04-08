@@ -13,7 +13,7 @@ const features = [
 ];
 
 const FeaturesSection = () => (
-  <section className="section-blue px-5 py-16">
+  <section className="section-red px-5 py-16">
     <div className="max-w-lg mx-auto">
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
         <h2 className="text-3xl font-black text-center mb-10">
