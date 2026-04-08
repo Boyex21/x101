@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { Shield, MapPin, Zap, Truck } from "lucide-react";
-import gpsDevice from "@/assets/gps-device.png";
+import { Shield, MapPin, Zap, Truck, Car, Bike } from "lucide-react";
+import gpsDevice from "@/assets/gps-device-clean.png";
 import logo from "@/assets/logo-america-gps.svg";
 
 const HeroSection = () => (
@@ -9,19 +9,26 @@ const HeroSection = () => (
       <div className="absolute top-20 left-10 w-72 h-72 rounded-full bg-accent blur-3xl" />
       <div className="absolute bottom-10 right-10 w-96 h-96 rounded-full bg-primary-foreground blur-3xl" />
     </div>
-    <div className="relative z-10 px-5 pt-12 pb-10 max-w-lg mx-auto text-center">
+    <div className="relative z-10 px-5 pt-10 pb-10 max-w-lg mx-auto text-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <img src={logo} alt="America GPS" className="h-12 mx-auto mb-6 brightness-0 invert" />
+        <img src={logo} alt="America GPS" className="h-16 md:h-24 mx-auto mb-6 brightness-0 invert" />
         <span className="badge-urgency mb-4 inline-block">🔥 Oferta limitada</span>
         <h1 className="text-4xl md:text-5xl font-black leading-tight mt-4 mb-4">
           Tu vehículo protegido <span className="text-accent">24/7</span> desde tu celular
         </h1>
-        <p className="text-lg opacity-90 mb-6 font-medium">
+        <p className="text-lg opacity-90 mb-2 font-medium">
           Compra, conecta y rastrea en minutos. Sin técnicos. Sin complicaciones.
+        </p>
+        <p className="text-sm opacity-70 mb-6 flex items-center justify-center gap-2">
+          <Car className="w-4 h-4" /> Carros
+          <span className="opacity-50">•</span>
+          <Bike className="w-4 h-4" /> Motos
+          <span className="opacity-50">•</span>
+          <Truck className="w-4 h-4" /> Camiones
         </p>
       </motion.div>
 

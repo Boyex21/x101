@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { Heart, Smartphone, Users, Siren } from "lucide-react";
-import appMockup from "@/assets/app-mockup.png";
+import desktopMobile from "@/assets/desktop-mobile-tracking.png";
 
 const benefits = [
   { icon: Heart, title: "Tranquilidad total", desc: "Duerme tranquilo sabiendo dónde está tu vehículo" },
-  { icon: Smartphone, title: "Control desde tu celular", desc: "Rastrea, bloquea y recibe alertas al instante" },
+  { icon: Smartphone, title: "Control total", desc: "Rastrea desde tu celular o computadora en tiempo real" },
   { icon: Users, title: "Protege a tu familia", desc: "Monitorea los viajes de tus seres queridos" },
   { icon: Siren, title: "Reacción inmediata", desc: "Detecta robos al segundo y actúa rápido" },
 ];
@@ -34,7 +34,10 @@ const BenefitsSection = () => (
           </motion.div>
         ))}
       </div>
-      <img src={appMockup} alt="App de rastreo America GPS" loading="lazy" width={400} height={400} className="mx-auto max-w-[280px]" />
+      <div className="text-center mb-4">
+        <p className="text-xs text-muted-foreground font-semibold mb-3">Controla desde cualquier dispositivo</p>
+        <img src={desktopMobile} alt="Rastreo desde computadora y celular - America GPS" loading="lazy" width={1024} height={640} className="mx-auto max-w-full rounded-xl" />
+      </div>
     </motion.div>
   </section>
 );

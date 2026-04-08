@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, X, Truck, Bluetooth, Wrench, Plus } from "lucide-react";
+import { Check, X, Truck, Bluetooth, Wrench, Plus, AlertCircle } from "lucide-react";
 import { useState } from "react";
 
 const included = [
@@ -62,7 +62,7 @@ const OfferSection = () => {
             ))}
           </div>
           <p className="text-center text-muted-foreground text-xs mt-4">
-            Renovación: solo $70/año después del primer año
+            Compatible con carros, motos y camiones · Renovación: solo $70/año
           </p>
         </div>
 
@@ -89,20 +89,23 @@ const OfferSection = () => {
               <p className="text-xs text-muted-foreground mb-3">
                 Bloquea el motor de tu vehículo desde la app. Se conecta vía Bluetooth al GPS — sin cables entre módulos.
               </p>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 mb-3">
                 <span className="inline-flex items-center gap-1 text-[10px] bg-secondary/10 text-secondary rounded-full px-2 py-0.5 font-semibold">
                   <Bluetooth className="w-3 h-3" /> Conexión Bluetooth
                 </span>
                 <span className="inline-flex items-center gap-1 text-[10px] bg-secondary/10 text-secondary rounded-full px-2 py-0.5 font-semibold">
-                  <Wrench className="w-3 h-3" /> Instalación por técnico
+                  <Wrench className="w-3 h-3" /> Requiere instalación
                 </span>
                 <span className="inline-flex items-center gap-1 text-[10px] bg-secondary/10 text-secondary rounded-full px-2 py-0.5 font-semibold">
                   <Truck className="w-3 h-3" /> Envío incluido
                 </span>
               </div>
-              <p className="text-[10px] text-muted-foreground mt-2">
-                Red de +300 técnicos en Ecuador y Colombia para instalación.
-              </p>
+              <div className="flex items-start gap-1.5 bg-accent/10 rounded-lg p-2">
+                <AlertCircle className="w-3.5 h-3.5 text-accent-foreground mt-0.5 flex-shrink-0" />
+                <p className="text-[10px] text-muted-foreground">
+                  <strong>Nota:</strong> El precio del módulo ($30) incluye envío pero <strong>no incluye el costo de instalación</strong> del técnico. Contamos con una red de +300 técnicos en Ecuador y Colombia para la instalación.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -112,7 +115,7 @@ const OfferSection = () => {
         </a>
         {addRelay && (
           <p className="text-center text-xs text-muted-foreground mt-2">
-            GPS $125 + Módulo cortacorriente $30
+            GPS $125 + Módulo cortacorriente $30 (instalación no incluida)
           </p>
         )}
       </motion.div>
