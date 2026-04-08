@@ -8,7 +8,7 @@ const FloatingCTA = () => (
     className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-card/95 backdrop-blur-md border-t shadow-2xl"
   >
     <a href="#comprar" className="btn-cta w-full block text-center">
-      🛒 Comprar ahora — $125 · Envío gratis
+      🛒 Comprar ahora — $139 · Envío gratis
     </a>
   </motion.div>
 );

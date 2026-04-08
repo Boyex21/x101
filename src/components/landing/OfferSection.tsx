@@ -15,7 +15,7 @@ const included = [
 
 const OfferSection = () => {
   const [addRelay, setAddRelay] = useState(false);
-  const total = addRelay ? 155 : 125;
+  const total = addRelay ? 169 : 139;
 
   return (
     <section id="comprar" className="px-5 py-16 max-w-lg mx-auto">
@@ -40,7 +40,7 @@ const OfferSection = () => {
           </div>
           <div className="bg-primary rounded-xl p-5 text-center text-primary-foreground border-2 border-accent shadow-lg">
             <h4 className="font-bold text-sm mb-2">America GPS</h4>
-            <p className="text-3xl font-black">$125</p>
+            <p className="text-3xl font-black">$139</p>
             <ul className="text-xs mt-3 space-y-1.5 text-left">
               <li className="flex items-center gap-1"><Check className="w-3 h-3 text-accent" /> Plug & Play</li>
               <li className="flex items-center gap-1"><Check className="w-3 h-3 text-accent" /> Todo incluido</li>
@@ -72,13 +72,13 @@ const OfferSection = () => {
           onClick={() => setAddRelay(!addRelay)}
           className={`border-2 rounded-xl p-5 mb-8 cursor-pointer transition-all ${
             addRelay
-              ? "border-primary bg-primary/5 shadow-md"
-              : "border-border bg-card hover:border-primary/40"
+              ? "border-green-500 bg-green-500/10 shadow-md shadow-green-500/20"
+              : "border-border bg-card hover:border-green-400/40"
           }`}
         >
           <div className="flex items-start gap-4">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${
-              addRelay ? "bg-primary text-primary-foreground" : "bg-secondary/10 text-secondary"
+              addRelay ? "bg-green-500 text-white" : "bg-secondary/10 text-secondary"
             }`}>
               <Plus className={`w-5 h-5 transition-transform ${addRelay ? "rotate-45" : ""}`} />
             </div>
@@ -116,7 +116,7 @@ const OfferSection = () => {
         </a>
         {addRelay && (
           <p className="text-center text-xs text-muted-foreground mt-2">
-            GPS $125 + Módulo cortacorriente $30 (instalación no incluida)
+            GPS $139 + Módulo cortacorriente $30 (instalación no incluida)
           </p>
         )}
       </motion.div>
