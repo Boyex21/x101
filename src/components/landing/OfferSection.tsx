@@ -4,12 +4,13 @@ import { useState } from "react";
 
 const included = [
   "GPS vehicular Plug & Play",
-  "SIM con 1 año de servicio",
+  "SIM con 1 año de servicio incluido",
   "App móvil completa",
   "Alertas ilimitadas",
   "Soporte técnico",
   "Batería de respaldo",
   "Envío incluido",
+  "Renovación: solo $79/año (desde el 2do año)",
 ];
 
 const OfferSection = () => {
