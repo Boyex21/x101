@@ -33,7 +33,7 @@ const TrustSection = () => (
         ✅ Proteger mi vehículo — $125
       </a>
       <p className="text-center text-muted-foreground text-xs mt-4">
-        Compra segura • Envío incluido • Soporte 24/7
+        Compra segura • Envío incluido • Soporte incluido
       </p>
     </motion.div>
   </section>

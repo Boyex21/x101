@@ -5,11 +5,15 @@ const testimonials = [
   { name: "Carlos M.", msg: "Lo instalé yo solo en 5 minutos. Ahora sé dónde está mi camioneta todo el tiempo. ¡Increíble! 🙌", stars: 5 },
   { name: "María L.", msg: "Me robaron el auto hace un año. Con America GPS lo hubiera recuperado. Ahora lo tengo en mis 2 carros.", stars: 5 },
   { name: "Roberto S.", msg: "Tengo una flotilla de 8 vehículos. America GPS me ahorra dinero y dolores de cabeza.", stars: 5 },
+  { name: "Lucía P.", msg: "Mi esposo viaja mucho por trabajo. Con America GPS sé que siempre llega bien. La mejor inversión que hemos hecho. 💯", stars: 5 },
+  { name: "Andrés V.", msg: "Intentaron robar mi moto y me llegó la alerta al instante. Llamé a la policía y la recuperé en 20 minutos.", stars: 5 },
 ];
 
 const whatsappMsgs = [
   { name: "Ana G.", msg: "¡Amiga! Me acabo de comprar el GPS de America GPS que viste en Facebook. Es buenísimo 😍" },
   { name: "Pedro R.", msg: "Hermano, ya lo instalé. Literal 3 minutos y ya estoy rastreando desde el celular 🔥" },
+  { name: "Sofía M.", msg: "Le compré uno a mi papá para su camioneta. Él mismo lo instaló sin ayuda, imagínate lo fácil que es 😂👌" },
+  { name: "Jorge T.", msg: "Bro, me acaba de llegar la alerta de que movieron mi carro del parqueadero. Esto sí funciona de verdad 🚨💪" },
 ];
 
 const TestimonialsSection = () => (
