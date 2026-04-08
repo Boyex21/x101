@@ -3,12 +3,12 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   { name: "Carlos M.", msg: "Lo instalé yo solo en 5 minutos. Ahora sé dónde está mi camioneta todo el tiempo. ¡Increíble! 🙌", stars: 5 },
-  { name: "María L.", msg: "Me robaron el auto hace un año. Con este GPS lo hubiera recuperado. Ahora lo tengo en mis 2 carros.", stars: 5 },
-  { name: "Roberto S.", msg: "Tengo una flotilla de 8 vehículos. Esta app me ahorra dinero y dolores de cabeza.", stars: 5 },
+  { name: "María L.", msg: "Me robaron el auto hace un año. Con America GPS lo hubiera recuperado. Ahora lo tengo en mis 2 carros.", stars: 5 },
+  { name: "Roberto S.", msg: "Tengo una flotilla de 8 vehículos. America GPS me ahorra dinero y dolores de cabeza.", stars: 5 },
 ];
 
 const whatsappMsgs = [
-  { name: "Ana G.", msg: "¡Amiga! Me acabo de comprar el GPS ese que viste en Facebook. Es buenísimo 😍" },
+  { name: "Ana G.", msg: "¡Amiga! Me acabo de comprar el GPS de America GPS que viste en Facebook. Es buenísimo 😍" },
   { name: "Pedro R.", msg: "Hermano, ya lo instalé. Literal 3 minutos y ya estoy rastreando desde el celular 🔥" },
 ];
 
@@ -17,7 +17,7 @@ const TestimonialsSection = () => (
     <div className="max-w-lg mx-auto">
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
         <h2 className="text-3xl font-black text-center mb-2">
-          +2,500 personas ya lo usan
+          +2,500 personas ya confían en <span className="text-primary">America GPS</span>
         </h2>
         <p className="text-center text-dark-section-foreground/60 mb-10">
           Y no paran de recomendarlo
