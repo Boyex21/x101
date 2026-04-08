@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Car, Eye, Users } from "lucide-react";
+import vehiclesImg from "@/assets/vehicles-types.png";
 
 const scenarios = [
   { icon: Car, title: "Robo en estacionamiento", desc: "Recibes alerta al instante. Ubicas tu auto. Actúas antes de que sea tarde.", color: "bg-destructive/10 text-destructive" },
@@ -13,7 +14,7 @@ const ScenariosSection = () => (
       <h2 className="text-3xl font-black text-center mb-10">
         Imagina estos escenarios…
       </h2>
-      <div className="space-y-5">
+      <div className="space-y-5 mb-10">
         {scenarios.map((s, i) => (
           <motion.div
             key={i}
@@ -29,6 +30,10 @@ const ScenariosSection = () => (
             <p className="text-muted-foreground text-sm">{s.desc}</p>
           </motion.div>
         ))}
+      </div>
+      <div className="text-center">
+        <p className="text-sm font-bold text-muted-foreground mb-4">Compatible con todo tipo de vehículos</p>
+        <img src={vehiclesImg} alt="Compatible con carros, motos y camiones" loading="lazy" width={1024} height={512} className="mx-auto max-w-[320px]" />
       </div>
     </motion.div>
   </section>

@@ -12,7 +12,7 @@ const trusts = [
 const TrustSection = () => (
   <section className="px-5 py-16 max-w-lg mx-auto">
     <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
-      <img src={logo} alt="America GPS" className="h-10 mx-auto mb-6" />
+      <img src={logo} alt="America GPS" className="h-14 md:h-20 mx-auto mb-6" />
       <h2 className="text-3xl font-black text-center mb-10">
         Compra sin riesgo
       </h2>
