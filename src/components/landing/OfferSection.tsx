@@ -16,7 +16,7 @@ const included = [
   "Soporte técnico",
   "Batería de respaldo",
   "Envío incluido",
-  "Renovación: solo $79/año (desde el 2do año)",
+  "Renovación: solo $89/año (desde el 2do año)",
 ];
 
 type ComboType = "single" | "2years" | "duo";
@@ -96,7 +96,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
             ))}
           </div>
           <p className="text-center text-muted-foreground text-xs mt-4">
-            Compatible con carros, motos y camiones · Renovación anual: $79 (a partir del 2do año)
+            Compatible con carros, motos y camiones · Renovación anual: $89 (a partir del 2do año)
           </p>
         </div>
 
