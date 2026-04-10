@@ -20,7 +20,11 @@ const included = [
 
 type ComboType = "single" | "2years" | "duo";
 
-const OfferSection = () => {
+interface OfferSectionProps {
+  onPriceChange?: (total: number) => void;
+}
+
+const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
 
