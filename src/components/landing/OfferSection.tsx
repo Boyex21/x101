@@ -31,7 +31,11 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
 
   const basePrice = selectedCombo === "single" ? 139 : selectedCombo === "2years" ? 200 : 250;
   const relayPrice = selectedCombo === "duo" ? 60 : 30;
-  const total = addRelay ? basePrice + relayPrice : basePrice;
+
+  useEffect(() => {
+    onPriceChange?.(total);
+  }, [total, onPriceChange]);
+
 
   const comboLabels: Record<ComboType, string> = {
     single: "GPS America x101 — 1 dispositivo, 1 año de servicio",
