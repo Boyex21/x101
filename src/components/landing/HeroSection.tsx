@@ -48,7 +48,7 @@ const HeroSection = () => (
         className="space-y-4"
       >
         <a href="#comprar" className="btn-cta w-full block text-center text-xl">
-          🛒 Comprar ahora — $139
+          🛒 Ver planes y comprar — $139
         </a>
         <div className="flex items-center justify-center gap-1 text-xs opacity-80">
           <Truck className="w-3.5 h-3.5" />
