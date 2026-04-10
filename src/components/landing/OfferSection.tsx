@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { Check, X, Truck, Bluetooth, Wrench, Plus, AlertCircle, Gift, Calendar } from "lucide-react";
 import { useState } from "react";
 
