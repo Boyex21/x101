@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import { Check, X, Truck, Bluetooth, Wrench, Plus, AlertCircle, Gift, Calendar } from "lucide-react";
 import { useState } from "react";
 
@@ -20,13 +21,22 @@ const included = [
 
 type ComboType = "single" | "2years" | "duo";
 
-const OfferSection = () => {
+interface OfferSectionProps {
+  onPriceChange?: (total: number) => void;
+}
+
+const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
 
   const basePrice = selectedCombo === "single" ? 139 : selectedCombo === "2years" ? 200 : 250;
   const relayPrice = selectedCombo === "duo" ? 60 : 30;
   const total = addRelay ? basePrice + relayPrice : basePrice;
+
+  useEffect(() => {
+    onPriceChange?.(total);
+  }, [total, onPriceChange]);
+
 
   const comboLabels: Record<ComboType, string> = {
     single: "GPS America x101 — 1 dispositivo, 1 año de servicio",
