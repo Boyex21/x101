@@ -14,6 +14,10 @@ import FloatingCTA from "@/components/landing/FloatingCTA";
 const Index = () => {
   const [totalPrice, setTotalPrice] = useState(139);
 
+  const scrollToOffer = () => {
+    document.getElementById("comprar")?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <main className="pb-20">
       <HeroSection />
@@ -26,7 +30,7 @@ const Index = () => {
       <OfferSection onPriceChange={setTotalPrice} />
       <UrgencySection />
       <TrustSection />
-      <FloatingCTA totalPrice={totalPrice} />
+      <FloatingCTA totalPrice={totalPrice} onBuyClick={scrollToOffer} />
     </main>
   );
 };

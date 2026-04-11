@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Check, X, Truck, Bluetooth, Wrench, Plus, AlertCircle, Gift, Calendar } from "lucide-react";
-import { useState } from "react";
+import CheckoutModal from "./CheckoutModal";
 
 const WA_NUMBER = "593997776222";
 
@@ -28,6 +28,7 @@ interface OfferSectionProps {
 const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const basePrice = selectedCombo === "single" ? 139 : selectedCombo === "2years" ? 200 : 250;
   const relayPrice = selectedCombo === "duo" ? 60 : 30;
@@ -138,7 +139,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
             }`}
           >
             <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
-              AHORRA $78
+              AHORRA $28
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -238,9 +239,9 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
           </div>
         </div>
 
-        <a href={waUrl} target="_blank" rel="noopener noreferrer" className="btn-cta w-full block text-center text-xl">
+        <button onClick={() => setShowCheckout(true)} className="btn-cta w-full block text-center text-xl">
           🛡️ Comprar ahora — ${total}
-        </a>
+        </button>
         <p className="text-center text-xs text-muted-foreground mt-2">
           {selectedCombo === "single" && !addRelay && "GPS x101 · 1 año de servicio · envío incluido"}
           {selectedCombo === "single" && addRelay && `GPS $139 + Módulo cortacorriente $30 (instalación no incluida)`}
@@ -249,6 +250,15 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
           {selectedCombo === "duo" && !addRelay && "2x GPS x101 · 1 año de servicio c/u · envío incluido"}
           {selectedCombo === "duo" && addRelay && `2x GPS $250 + 2x Módulo cortacorriente $60 (instalación no incluida)`}
         </p>
+
+        <CheckoutModal
+          open={showCheckout}
+          onOpenChange={setShowCheckout}
+          comboLabel={comboLabels[selectedCombo]}
+          total={total}
+          addRelay={addRelay}
+          relayLabel={selectedCombo === "duo" ? "2x Módulo cortacorriente inalámbrico ($60)" : "Módulo cortacorriente inalámbrico ($30)"}
+        />
       </motion.div>
     </section>
   );
