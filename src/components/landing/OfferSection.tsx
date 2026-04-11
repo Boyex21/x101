@@ -138,7 +138,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
             }`}
           >
             <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
-              AHORRA $78
+              AHORRA $28
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
