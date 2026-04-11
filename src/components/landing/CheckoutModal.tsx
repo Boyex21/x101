@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
 
 const WA_NUMBER = "593997776222";
@@ -15,22 +16,56 @@ interface CheckoutModalProps {
   relayLabel: string;
 }
 
+const PRIORITY_COUNTRIES = [
+  { name: "Ecuador", code: "EC", prefix: "+593", flag: "🇪🇨" },
+  { name: "Colombia", code: "CO", prefix: "+57", flag: "🇨🇴" },
+];
+
+const OTHER_COUNTRIES = [
+  { name: "Argentina", code: "AR", prefix: "+54", flag: "🇦🇷" },
+  { name: "Bolivia", code: "BO", prefix: "+591", flag: "🇧🇴" },
+  { name: "Brasil", code: "BR", prefix: "+55", flag: "🇧🇷" },
+  { name: "Chile", code: "CL", prefix: "+56", flag: "🇨🇱" },
+  { name: "Costa Rica", code: "CR", prefix: "+506", flag: "🇨🇷" },
+  { name: "Cuba", code: "CU", prefix: "+53", flag: "🇨🇺" },
+  { name: "El Salvador", code: "SV", prefix: "+503", flag: "🇸🇻" },
+  { name: "España", code: "ES", prefix: "+34", flag: "🇪🇸" },
+  { name: "Estados Unidos", code: "US", prefix: "+1", flag: "🇺🇸" },
+  { name: "Guatemala", code: "GT", prefix: "+502", flag: "🇬🇹" },
+  { name: "Honduras", code: "HN", prefix: "+504", flag: "🇭🇳" },
+  { name: "México", code: "MX", prefix: "+52", flag: "🇲🇽" },
+  { name: "Nicaragua", code: "NI", prefix: "+505", flag: "🇳🇮" },
+  { name: "Panamá", code: "PA", prefix: "+507", flag: "🇵🇦" },
+  { name: "Paraguay", code: "PY", prefix: "+595", flag: "🇵🇾" },
+  { name: "Perú", code: "PE", prefix: "+51", flag: "🇵🇪" },
+  { name: "Puerto Rico", code: "PR", prefix: "+1", flag: "🇵🇷" },
+  { name: "Rep. Dominicana", code: "DO", prefix: "+1", flag: "🇩🇴" },
+  { name: "Uruguay", code: "UY", prefix: "+598", flag: "🇺🇾" },
+  { name: "Venezuela", code: "VE", prefix: "+58", flag: "🇻🇪" },
+];
+
+const ALL_COUNTRIES = [...PRIORITY_COUNTRIES, ...OTHER_COUNTRIES];
+
 const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayLabel }: CheckoutModalProps) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [direccion, setDireccion] = useState("");
   const [ciudad, setCiudad] = useState("");
   const [pais, setPais] = useState("");
+  const [phonePrefix, setPhonePrefix] = useState("+593");
   const [celular, setCelular] = useState("");
   const [usarOtrosFactura, setUsarOtrosFactura] = useState(false);
   const [facturaNombre, setFacturaNombre] = useState("");
   const [facturaId, setFacturaId] = useState("");
   const [facturaDireccion, setFacturaDireccion] = useState("");
 
+  const selectedPrefixCountry = ALL_COUNTRIES.find(c => c.prefix === phonePrefix);
+
   const handleSubmit = () => {
-    if (!nombre.trim() || !apellido.trim() || !direccion.trim() || !ciudad.trim() || !pais.trim() || !celular.trim()) return;
+    if (!nombre.trim() || !apellido.trim() || !direccion.trim() || !ciudad.trim() || !pais || !celular.trim()) return;
     if (usarOtrosFactura && (!facturaNombre.trim() || !facturaId.trim() || !facturaDireccion.trim())) return;
 
+    const fullPhone = `${phonePrefix} ${celular.trim()}`;
     const lines = [
       "📋 *NUEVA ORDEN — America GPS*",
       "━━━━━━━━━━━━━━━━━━━━━",
@@ -45,8 +80,8 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
       `▸ Nombre: ${nombre.trim()} ${apellido.trim()}`,
       `▸ Dirección: ${direccion.trim()}`,
       `▸ Ciudad: ${ciudad.trim()}`,
-      `▸ País: ${pais.trim()}`,
-      `▸ Celular: ${celular.trim()}`,
+      `▸ País: ${pais}`,
+      `▸ Celular: ${fullPhone}`,
     ];
 
     if (usarOtrosFactura) {
@@ -68,7 +103,7 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
   };
 
   const isValid =
-    nombre.trim() && apellido.trim() && direccion.trim() && ciudad.trim() && pais.trim() && celular.trim() &&
+    nombre.trim() && apellido.trim() && direccion.trim() && ciudad.trim() && pais && celular.trim() &&
     (!usarOtrosFactura || (facturaNombre.trim() && facturaId.trim() && facturaDireccion.trim()));
 
   return (
@@ -108,12 +143,51 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
             </div>
             <div>
               <label className="text-xs font-semibold text-muted-foreground mb-1 block">País</label>
-              <Input placeholder="Ecuador" value={pais} onChange={(e) => setPais(e.target.value)} />
+              <Select value={pais} onValueChange={setPais}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Seleccionar" />
+                </SelectTrigger>
+                <SelectContent>
+                  {PRIORITY_COUNTRIES.map(c => (
+                    <SelectItem key={c.code} value={c.name}>
+                      {c.flag} {c.name}
+                    </SelectItem>
+                  ))}
+                  <div className="h-px bg-muted my-1" />
+                  {OTHER_COUNTRIES.map(c => (
+                    <SelectItem key={c.code} value={c.name}>
+                      {c.flag} {c.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
           <div>
             <label className="text-xs font-semibold text-muted-foreground mb-1 block">Número de celular</label>
-            <Input placeholder="+593 999 999 999" value={celular} onChange={(e) => setCelular(e.target.value)} />
+            <div className="flex gap-2">
+              <Select value={phonePrefix} onValueChange={setPhonePrefix}>
+                <SelectTrigger className="w-[130px] shrink-0">
+                  <SelectValue>
+                    {selectedPrefixCountry ? `${selectedPrefixCountry.flag} ${selectedPrefixCountry.prefix}` : phonePrefix}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {PRIORITY_COUNTRIES.map(c => (
+                    <SelectItem key={`ph-${c.code}`} value={c.prefix}>
+                      {c.flag} {c.name} ({c.prefix})
+                    </SelectItem>
+                  ))}
+                  <div className="h-px bg-muted my-1" />
+                  {OTHER_COUNTRIES.map(c => (
+                    <SelectItem key={`ph-${c.code}`} value={c.prefix}>
+                      {c.flag} {c.name} ({c.prefix})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Input placeholder="999 999 999" value={celular} onChange={(e) => setCelular(e.target.value)} className="flex-1" />
+            </div>
           </div>
 
           {/* Billing toggle */}
