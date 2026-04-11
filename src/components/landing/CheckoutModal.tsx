@@ -79,6 +79,11 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
           <DialogDescription className="text-sm text-muted-foreground">
             Completa tus datos para finalizar la orden
           </DialogDescription>
+          <div className="bg-accent/30 border border-accent rounded-xl p-3 mt-2 text-left">
+            <p className="text-sm text-accent-foreground font-medium leading-relaxed">
+              🎉 <strong>¡Felicidades!</strong> Has decidido transformar la seguridad de tu vehículo. Llena los siguientes datos para que recibas el dispositivo en la puerta de tu casa. La orden y el pago lo procesaremos vía WhatsApp con uno de nuestros asesores.
+            </p>
+          </div>
         </DialogHeader>
 
         <div className="space-y-3 mt-2">
