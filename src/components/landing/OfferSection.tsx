@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Check, X, Truck, Bluetooth, Wrench, Plus, AlertCircle, Gift, Calendar } from "lucide-react";
-import { useState } from "react";
+import CheckoutModal from "./CheckoutModal";
 
 const WA_NUMBER = "593997776222";
 
@@ -28,6 +28,7 @@ interface OfferSectionProps {
 const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const basePrice = selectedCombo === "single" ? 139 : selectedCombo === "2years" ? 200 : 250;
   const relayPrice = selectedCombo === "duo" ? 60 : 30;
