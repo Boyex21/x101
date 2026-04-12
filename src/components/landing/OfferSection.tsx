@@ -19,6 +19,7 @@ type ComboType = "single" | "2years" | "duo";
 
 interface OfferSectionProps {
   onPriceChange?: (total: number) => void;
+  onCurrencyChange?: (currency: Currency) => void;
 }
 
 const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
