@@ -36,6 +36,10 @@ const OfferSection = ({ onPriceChange, onCurrencyChange }: OfferSectionProps) =>
     onPriceChange?.(total);
   }, [total, onPriceChange]);
 
+  useEffect(() => {
+    onCurrencyChange?.(currency);
+  }, [currency, onCurrencyChange]);
+
   const fp = (usd: number) => formatPrice(usd, currency);
 
   const comboLabels: Record<ComboType, string> = {
