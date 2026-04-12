@@ -22,7 +22,7 @@ interface OfferSectionProps {
   onCurrencyChange?: (currency: Currency) => void;
 }
 
-const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
+const OfferSection = ({ onPriceChange, onCurrencyChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
   const [showCheckout, setShowCheckout] = useState(false);
