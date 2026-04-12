@@ -19,9 +19,10 @@ type ComboType = "single" | "2years" | "duo";
 
 interface OfferSectionProps {
   onPriceChange?: (total: number) => void;
+  onCurrencyChange?: (currency: Currency) => void;
 }
 
-const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
+const OfferSection = ({ onPriceChange, onCurrencyChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
   const [showCheckout, setShowCheckout] = useState(false);
@@ -34,6 +35,10 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
   useEffect(() => {
     onPriceChange?.(total);
   }, [total, onPriceChange]);
+
+  useEffect(() => {
+    onCurrencyChange?.(currency);
+  }, [currency, onCurrencyChange]);
 
   const fp = (usd: number) => formatPrice(usd, currency);
 
