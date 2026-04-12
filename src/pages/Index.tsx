@@ -9,11 +9,11 @@ import TestimonialsSection from "@/components/landing/TestimonialsSection";
 import OfferSection from "@/components/landing/OfferSection";
 import UrgencySection from "@/components/landing/UrgencySection";
 import TrustSection from "@/components/landing/TrustSection";
+import ServicePlansSection from "@/components/landing/ServicePlansSection";
+import FranchiseSection from "@/components/landing/FranchiseSection";
 import FloatingCTA from "@/components/landing/FloatingCTA";
 
 const Index = () => {
-  const [totalPrice, setTotalPrice] = useState(139);
-
   const scrollToOffer = () => {
     document.getElementById("comprar")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -27,10 +27,12 @@ const Index = () => {
       <FeaturesSection />
       <ScenariosSection />
       <TestimonialsSection />
-      <OfferSection onPriceChange={setTotalPrice} />
+      <OfferSection />
+      <ServicePlansSection />
       <UrgencySection />
       <TrustSection />
-      <FloatingCTA totalPrice={totalPrice} onBuyClick={scrollToOffer} />
+      <FranchiseSection />
+      <FloatingCTA onBuyClick={scrollToOffer} />
     </main>
   );
 };
