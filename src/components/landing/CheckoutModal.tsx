@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -19,12 +19,30 @@ interface CheckoutModalProps {
 }
 
 const COUNTRIES = [
-  { name: "Ecuador", code: "EC", prefix: "+593", flag: "🇪🇨" },
-  { name: "Colombia", code: "CO", prefix: "+57", flag: "🇨🇴" },
-  { name: "México", code: "MX", prefix: "+52", flag: "🇲🇽" },
-  { name: "Perú", code: "PE", prefix: "+51", flag: "🇵🇪" },
-  { name: "Chile", code: "CL", prefix: "+56", flag: "🇨🇱" },
+  { name: "Ecuador", code: "EC", prefix: "+593", flag: "🇪🇨", currencyCode: "USD" },
+  { name: "Colombia", code: "CO", prefix: "+57", flag: "🇨🇴", currencyCode: "COP" },
+  { name: "México", code: "MX", prefix: "+52", flag: "🇲🇽", currencyCode: "MXN" },
+  { name: "Perú", code: "PE", prefix: "+51", flag: "🇵🇪", currencyCode: "PEN" },
+  { name: "Chile", code: "CL", prefix: "+56", flag: "🇨🇱", currencyCode: "CLP" },
+  { name: "Argentina", code: "AR", prefix: "+54", flag: "🇦🇷", currencyCode: "ARS" },
+  { name: "Bolivia", code: "BO", prefix: "+591", flag: "🇧🇴", currencyCode: "BOB" },
+  { name: "Brasil", code: "BR", prefix: "+55", flag: "🇧🇷", currencyCode: "BRL" },
+  { name: "Costa Rica", code: "CR", prefix: "+506", flag: "🇨🇷", currencyCode: "" },
+  { name: "El Salvador", code: "SV", prefix: "+503", flag: "🇸🇻", currencyCode: "" },
+  { name: "Guatemala", code: "GT", prefix: "+502", flag: "🇬🇹", currencyCode: "" },
+  { name: "Honduras", code: "HN", prefix: "+504", flag: "🇭🇳", currencyCode: "" },
+  { name: "Nicaragua", code: "NI", prefix: "+505", flag: "🇳🇮", currencyCode: "" },
+  { name: "Panamá", code: "PA", prefix: "+507", flag: "🇵🇦", currencyCode: "" },
+  { name: "Paraguay", code: "PY", prefix: "+595", flag: "🇵🇾", currencyCode: "" },
+  { name: "Rep. Dominicana", code: "DO", prefix: "+1", flag: "🇩🇴", currencyCode: "" },
+  { name: "Uruguay", code: "UY", prefix: "+598", flag: "🇺🇾", currencyCode: "" },
+  { name: "Venezuela", code: "VE", prefix: "+58", flag: "🇻🇪", currencyCode: "" },
 ];
+
+const getDefaultCountry = (currency: Currency) => {
+  const match = COUNTRIES.find(c => c.currencyCode === currency.code);
+  return match || COUNTRIES[0]; // default Ecuador
+};
 
 const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayLabel, currency }: CheckoutModalProps) => {
   const [nombre, setNombre] = useState("");
@@ -38,6 +56,15 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
   const [facturaNombre, setFacturaNombre] = useState("");
   const [facturaId, setFacturaId] = useState("");
   const [facturaDireccion, setFacturaDireccion] = useState("");
+
+  // Auto-select country and phone prefix based on currency
+  useEffect(() => {
+    if (open) {
+      const defaultCountry = getDefaultCountry(currency);
+      setPais(defaultCountry.name);
+      setPhonePrefix(defaultCountry.prefix);
+    }
+  }, [open, currency]);
 
   const selectedPrefixCountry = COUNTRIES.find(c => c.prefix === phonePrefix);
   const formattedTotal = formatPrice(total, currency);

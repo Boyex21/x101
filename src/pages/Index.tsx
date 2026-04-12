@@ -12,8 +12,11 @@ import TrustSection from "@/components/landing/TrustSection";
 import ServicePlansSection from "@/components/landing/ServicePlansSection";
 import FranchiseSection from "@/components/landing/FranchiseSection";
 import FloatingCTA from "@/components/landing/FloatingCTA";
+import { type Currency, CURRENCIES } from "@/lib/currencies";
 
 const Index = () => {
+  const [currency, setCurrency] = useState<Currency>(CURRENCIES[0]);
+
   const scrollToOffer = () => {
     document.getElementById("comprar")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -27,8 +30,8 @@ const Index = () => {
       <FeaturesSection />
       <ScenariosSection />
       <TestimonialsSection />
-      <OfferSection />
-      <ServicePlansSection />
+      <OfferSection onCurrencyChange={setCurrency} />
+      <ServicePlansSection currency={currency} />
       <UrgencySection />
       <TrustSection />
       <FranchiseSection />
