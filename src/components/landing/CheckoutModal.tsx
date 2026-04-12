@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
+import { type Currency, formatPrice } from "@/lib/currencies";
 
 const WA_NUMBER = "593997776222";
 
@@ -14,39 +15,18 @@ interface CheckoutModalProps {
   total: number;
   addRelay: boolean;
   relayLabel: string;
+  currency: Currency;
 }
 
-const PRIORITY_COUNTRIES = [
+const COUNTRIES = [
   { name: "Ecuador", code: "EC", prefix: "+593", flag: "🇪🇨" },
   { name: "Colombia", code: "CO", prefix: "+57", flag: "🇨🇴" },
-];
-
-const OTHER_COUNTRIES = [
-  { name: "Argentina", code: "AR", prefix: "+54", flag: "🇦🇷" },
-  { name: "Bolivia", code: "BO", prefix: "+591", flag: "🇧🇴" },
-  { name: "Brasil", code: "BR", prefix: "+55", flag: "🇧🇷" },
-  { name: "Chile", code: "CL", prefix: "+56", flag: "🇨🇱" },
-  { name: "Costa Rica", code: "CR", prefix: "+506", flag: "🇨🇷" },
-  { name: "Cuba", code: "CU", prefix: "+53", flag: "🇨🇺" },
-  { name: "El Salvador", code: "SV", prefix: "+503", flag: "🇸🇻" },
-  { name: "España", code: "ES", prefix: "+34", flag: "🇪🇸" },
-  { name: "Estados Unidos", code: "US", prefix: "+1", flag: "🇺🇸" },
-  { name: "Guatemala", code: "GT", prefix: "+502", flag: "🇬🇹" },
-  { name: "Honduras", code: "HN", prefix: "+504", flag: "🇭🇳" },
   { name: "México", code: "MX", prefix: "+52", flag: "🇲🇽" },
-  { name: "Nicaragua", code: "NI", prefix: "+505", flag: "🇳🇮" },
-  { name: "Panamá", code: "PA", prefix: "+507", flag: "🇵🇦" },
-  { name: "Paraguay", code: "PY", prefix: "+595", flag: "🇵🇾" },
   { name: "Perú", code: "PE", prefix: "+51", flag: "🇵🇪" },
-  { name: "Puerto Rico", code: "PR", prefix: "+1", flag: "🇵🇷" },
-  { name: "Rep. Dominicana", code: "DO", prefix: "+1", flag: "🇩🇴" },
-  { name: "Uruguay", code: "UY", prefix: "+598", flag: "🇺🇾" },
-  { name: "Venezuela", code: "VE", prefix: "+58", flag: "🇻🇪" },
+  { name: "Chile", code: "CL", prefix: "+56", flag: "🇨🇱" },
 ];
 
-const ALL_COUNTRIES = [...PRIORITY_COUNTRIES, ...OTHER_COUNTRIES];
-
-const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayLabel }: CheckoutModalProps) => {
+const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayLabel, currency }: CheckoutModalProps) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [direccion, setDireccion] = useState("");
@@ -59,7 +39,8 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
   const [facturaId, setFacturaId] = useState("");
   const [facturaDireccion, setFacturaDireccion] = useState("");
 
-  const selectedPrefixCountry = ALL_COUNTRIES.find(c => c.prefix === phonePrefix);
+  const selectedPrefixCountry = COUNTRIES.find(c => c.prefix === phonePrefix);
+  const formattedTotal = formatPrice(total, currency);
 
   const handleSubmit = () => {
     if (!nombre.trim() || !apellido.trim() || !direccion.trim() || !ciudad.trim() || !pais || !celular.trim()) return;
@@ -73,7 +54,7 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
       "🛒 *PRODUCTO*",
       `▸ ${comboLabel}`,
       ...(addRelay ? [`▸ ${relayLabel}`] : []),
-      `▸ *Total: $${total}*`,
+      `▸ *Total: ${formattedTotal} ${currency.code}*`,
       "",
       "━━━━━━━━━━━━━━━━━━━━━",
       "📦 *DATOS DE ENVÍO*",
@@ -95,7 +76,7 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
       );
     }
 
-    lines.push("", "━━━━━━━━━━━━━━━━━━━━━", "Enviado desde: x101.lovable.app");
+    lines.push("", "━━━━━━━━━━━━━━━━━━━━━", `Moneda seleccionada: ${currency.code}`, "Enviado desde: x101.lovable.app");
 
     const message = lines.join("\n");
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -147,14 +128,8 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
                 <SelectTrigger>
                   <SelectValue placeholder="Seleccionar" />
                 </SelectTrigger>
-                <SelectContent>
-                  {PRIORITY_COUNTRIES.map(c => (
-                    <SelectItem key={c.code} value={c.name}>
-                      {c.flag} {c.name}
-                    </SelectItem>
-                  ))}
-                  <div className="h-px bg-muted my-1" />
-                  {OTHER_COUNTRIES.map(c => (
+                <SelectContent className="max-h-[200px]">
+                  {COUNTRIES.map(c => (
                     <SelectItem key={c.code} value={c.name}>
                       {c.flag} {c.name}
                     </SelectItem>
@@ -172,14 +147,8 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
                     {selectedPrefixCountry ? `${selectedPrefixCountry.flag} ${selectedPrefixCountry.prefix}` : phonePrefix}
                   </SelectValue>
                 </SelectTrigger>
-                <SelectContent>
-                  {PRIORITY_COUNTRIES.map(c => (
-                    <SelectItem key={`ph-${c.code}`} value={c.prefix}>
-                      {c.flag} {c.name} ({c.prefix})
-                    </SelectItem>
-                  ))}
-                  <div className="h-px bg-muted my-1" />
-                  {OTHER_COUNTRIES.map(c => (
+                <SelectContent className="max-h-[200px]">
+                  {COUNTRIES.map(c => (
                     <SelectItem key={`ph-${c.code}`} value={c.prefix}>
                       {c.flag} {c.name} ({c.prefix})
                     </SelectItem>
@@ -229,7 +198,7 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
             <h4 className="font-bold text-sm mb-2">🛒 Resumen de tu orden</h4>
             <p className="text-xs text-muted-foreground">{comboLabel}</p>
             {addRelay && <p className="text-xs text-muted-foreground">{relayLabel}</p>}
-            <p className="font-black text-lg text-primary mt-1">Total: ${total}</p>
+            <p className="font-black text-lg text-primary mt-1">Total: {formattedTotal} {currency.code}</p>
           </div>
 
           <button

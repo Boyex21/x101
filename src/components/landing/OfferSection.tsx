@@ -1,12 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Check, X, Truck, Bluetooth, Wrench, Plus, AlertCircle, Gift, Calendar } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import CheckoutModal from "./CheckoutModal";
-
-const WA_NUMBER = "593997776222";
-
-const buildWhatsAppUrl = (message: string) =>
-  `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
+import { CURRENCIES, type Currency, formatPrice } from "@/lib/currencies";
 
 const included = [
   "GPS vehicular Plug & Play",
@@ -16,7 +13,6 @@ const included = [
   "Soporte técnico",
   "Batería de respaldo",
   "Envío incluido",
-  "Renovación: solo $89/año (desde el 2do año)",
 ];
 
 type ComboType = "single" | "2years" | "duo";
@@ -29,6 +25,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
   const [showCheckout, setShowCheckout] = useState(false);
+  const [currency, setCurrency] = useState<Currency>(CURRENCIES[0]);
 
   const basePrice = selectedCombo === "single" ? 139 : selectedCombo === "2years" ? 200 : 250;
   const relayPrice = selectedCombo === "duo" ? 60 : 30;
@@ -38,6 +35,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
     onPriceChange?.(total);
   }, [total, onPriceChange]);
 
+  const fp = (usd: number) => formatPrice(usd, currency);
 
   const comboLabels: Record<ComboType, string> = {
     single: "GPS America x101 — 1 dispositivo, 1 año de servicio",
@@ -45,27 +43,38 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
     duo: "GPS America x101 — 2 dispositivos, 1 año de servicio cada uno",
   };
 
-  const waMessage = addRelay
-    ? `Hola, quiero comprar: ${comboLabels[selectedCombo]} + Módulo cortacorriente inalámbrico. Total: $${total}`
-    : `Hola, quiero comprar: ${comboLabels[selectedCombo]}. Total: $${total}`;
-
-  const waUrl = buildWhatsAppUrl(waMessage);
-
   return (
     <section id="comprar" className="px-5 py-16 max-w-lg mx-auto">
       <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
         <h2 className="text-3xl font-black text-center mb-2">
           Todo incluido. <span className="text-primary">Un solo precio.</span>
         </h2>
-        <p className="text-center text-muted-foreground text-sm mb-10">
+        <p className="text-center text-muted-foreground text-sm mb-6">
           America GPS — protección sin complicaciones
         </p>
+
+        {/* Currency selector */}
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <span className="text-xs font-semibold text-muted-foreground">Moneda:</span>
+          <Select value={currency.code} onValueChange={(code) => setCurrency(CURRENCIES.find(c => c.code === code) || CURRENCIES[0])}>
+            <SelectTrigger className="w-[200px]">
+              <SelectValue>{currency.flag} {currency.name}</SelectValue>
+            </SelectTrigger>
+            <SelectContent className="max-h-[200px]">
+              {CURRENCIES.map(c => (
+                <SelectItem key={c.code} value={c.code}>
+                  {c.flag} {c.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
 
         {/* Comparison */}
         <div className="grid grid-cols-2 gap-3 mb-8">
           <div className="bg-muted rounded-xl p-5 text-center">
             <h4 className="font-bold text-sm mb-2 text-muted-foreground">GPS Tradicional</h4>
-            <p className="text-2xl font-black text-muted-foreground line-through">$250+</p>
+            <p className="text-2xl font-black text-muted-foreground line-through">{fp(250)}+</p>
             <ul className="text-xs text-muted-foreground mt-3 space-y-1.5 text-left">
               <li className="flex items-center gap-1"><X className="w-3 h-3 text-destructive" /> Necesita técnico</li>
               <li className="flex items-center gap-1"><X className="w-3 h-3 text-destructive" /> Instalación cara</li>
@@ -74,7 +83,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
           </div>
           <div className="bg-primary rounded-xl p-5 text-center text-primary-foreground border-2 border-accent shadow-lg">
             <h4 className="font-bold text-sm mb-2">America GPS</h4>
-            <p className="text-3xl font-black">$139</p>
+            <p className="text-3xl font-black">{fp(139)}</p>
             <ul className="text-xs mt-3 space-y-1.5 text-left">
               <li className="flex items-center gap-1"><Check className="w-3 h-3 text-accent" /> Plug & Play</li>
               <li className="flex items-center gap-1"><Check className="w-3 h-3 text-accent" /> Todo incluido</li>
@@ -97,7 +106,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
             ))}
           </div>
           <p className="text-center text-muted-foreground text-xs mt-4">
-            Compatible con carros, motos y camiones · Renovación anual: $89 (a partir del 2do año)
+            Compatible con carros, motos y camiones · Renovación anual: {fp(89)} (a partir del 2do año)
           </p>
         </div>
 
@@ -125,7 +134,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
                   <p className="text-xs text-muted-foreground">Plan estándar — todo incluido</p>
                 </div>
               </div>
-              <span className="font-black text-xl text-primary">$139</span>
+              <span className="font-black text-xl text-primary">{fp(139)}</span>
             </div>
           </div>
 
@@ -139,7 +148,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
             }`}
           >
             <div className="absolute top-0 right-0 bg-accent text-accent-foreground text-[10px] font-bold px-2 py-0.5 rounded-bl-lg">
-              AHORRA $28
+              AHORRA {fp(28)}
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
@@ -156,7 +165,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
                   <p className="text-xs text-muted-foreground">24 meses consecutivos — sin renovación intermedia</p>
                 </div>
               </div>
-              <span className="font-black text-xl text-accent">$200</span>
+              <span className="font-black text-xl text-accent">{fp(200)}</span>
             </div>
           </div>
 
@@ -187,7 +196,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
                   <p className="text-xs text-muted-foreground">Para tu familiar, amigo o segundo vehículo</p>
                 </div>
               </div>
-              <span className="font-black text-xl text-green-500">$250</span>
+              <span className="font-black text-xl text-green-500">{fp(250)}</span>
             </div>
           </div>
         </div>
@@ -211,7 +220,7 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
               <div className="flex items-center justify-between mb-1">
                 <h4 className="font-bold text-sm">Módulo cortacorriente inalámbrico</h4>
                 <span className="font-black text-primary text-lg">
-                  +${relayPrice}{selectedCombo === "duo" && <span className="text-xs font-medium text-muted-foreground ml-1">(x2)</span>}
+                  +{fp(relayPrice)}{selectedCombo === "duo" && <span className="text-xs font-medium text-muted-foreground ml-1">(x2)</span>}
                 </span>
               </div>
               <p className="text-xs text-muted-foreground mb-3">
@@ -240,15 +249,15 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
         </div>
 
         <button onClick={() => setShowCheckout(true)} className="btn-cta w-full block text-center text-xl">
-          🛡️ Comprar ahora — ${total}
+          🛡️ Comprar ahora — {fp(total)}
         </button>
         <p className="text-center text-xs text-muted-foreground mt-2">
           {selectedCombo === "single" && !addRelay && "GPS x101 · 1 año de servicio · envío incluido"}
-          {selectedCombo === "single" && addRelay && `GPS $139 + Módulo cortacorriente $30 (instalación no incluida)`}
+          {selectedCombo === "single" && addRelay && `GPS ${fp(139)} + Módulo cortacorriente ${fp(30)} (instalación no incluida)`}
           {selectedCombo === "2years" && !addRelay && "GPS x101 · 2 años de servicio (24 meses) · envío incluido"}
-          {selectedCombo === "2years" && addRelay && `GPS 2 años $200 + Módulo cortacorriente $30 (instalación no incluida)`}
+          {selectedCombo === "2years" && addRelay && `GPS 2 años ${fp(200)} + Módulo cortacorriente ${fp(30)} (instalación no incluida)`}
           {selectedCombo === "duo" && !addRelay && "2x GPS x101 · 1 año de servicio c/u · envío incluido"}
-          {selectedCombo === "duo" && addRelay && `2x GPS $250 + 2x Módulo cortacorriente $60 (instalación no incluida)`}
+          {selectedCombo === "duo" && addRelay && `2x GPS ${fp(250)} + 2x Módulo cortacorriente ${fp(60)} (instalación no incluida)`}
         </p>
 
         <CheckoutModal
@@ -257,7 +266,8 @@ const OfferSection = ({ onPriceChange }: OfferSectionProps) => {
           comboLabel={comboLabels[selectedCombo]}
           total={total}
           addRelay={addRelay}
-          relayLabel={selectedCombo === "duo" ? "2x Módulo cortacorriente inalámbrico ($60)" : "Módulo cortacorriente inalámbrico ($30)"}
+          relayLabel={selectedCombo === "duo" ? `2x Módulo cortacorriente inalámbrico (${fp(60)})` : `Módulo cortacorriente inalámbrico (${fp(30)})`}
+          currency={currency}
         />
       </motion.div>
     </section>

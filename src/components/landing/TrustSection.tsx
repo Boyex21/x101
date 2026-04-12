@@ -30,7 +30,7 @@ const TrustSection = () => (
         ))}
       </div>
       <a href="#comprar" className="btn-cta w-full block text-center text-xl">
-        ✅ Proteger mi vehículo — $139
+        ✅ Proteger mi vehículo ahora
       </a>
       <p className="text-center text-muted-foreground text-xs mt-4">
         Compra segura • Envío incluido • Soporte incluido
