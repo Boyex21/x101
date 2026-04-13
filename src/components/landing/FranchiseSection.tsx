@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Handshake } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 
-const WA_NUMBER = "593997776222";
+const WA_NUMBER = "593981624431";
 
 const FranchiseSection = () => {
   const [open, setOpen] = useState(false);
