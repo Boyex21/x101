@@ -20,6 +20,8 @@ type ComboType = "single" | "2years" | "duo";
 interface OfferSectionProps {
   onPriceChange?: (total: number) => void;
   onCurrencyChange?: (currency: Currency) => void;
+  externalCheckoutOpen?: boolean;
+  onExternalCheckoutChange?: (open: boolean) => void;
 }
 
 const OfferSection = ({ onPriceChange, onCurrencyChange }: OfferSectionProps) => {
