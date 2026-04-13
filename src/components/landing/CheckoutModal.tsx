@@ -103,7 +103,7 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
       );
     }
 
-    lines.push("", "━━━━━━━━━━━━━━━━━━━━━", `Moneda seleccionada: ${currency.code}`, "Enviado desde: x101.lovable.app");
+    lines.push("", "━━━━━━━━━━━━━━━━━━━━━", `Moneda seleccionada: ${currency.code}`, "Enviado desde el sitio web oficial de AmericaGPS");
 
     const message = lines.join("\n");
     const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`;
