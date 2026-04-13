@@ -24,11 +24,19 @@ interface OfferSectionProps {
   onExternalCheckoutChange?: (open: boolean) => void;
 }
 
-const OfferSection = ({ onPriceChange, onCurrencyChange }: OfferSectionProps) => {
+const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, onExternalCheckoutChange }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
   const [showCheckout, setShowCheckout] = useState(false);
   const [currency, setCurrency] = useState<Currency>(CURRENCIES[0]);
+
+  // Sync external checkout open state
+  useEffect(() => {
+    if (externalCheckoutOpen) {
+      setShowCheckout(true);
+      onExternalCheckoutChange?.(false);
+    }
+  }, [externalCheckoutOpen, onExternalCheckoutChange]);
 
   const basePrice = selectedCombo === "single" ? 139 : selectedCombo === "2years" ? 200 : 250;
   const relayPrice = selectedCombo === "duo" ? 60 : 30;
