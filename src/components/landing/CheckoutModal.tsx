@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { motion } from "framer-motion";
 import { type Currency, formatPrice } from "@/lib/currencies";
 
-const WA_NUMBER = "593997776222";
+const WA_NUMBER = "593981624431";
 
 interface CheckoutModalProps {
   open: boolean;
