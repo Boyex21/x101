@@ -63,8 +63,24 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
       const defaultCountry = getDefaultCountry(currency);
       setPais(defaultCountry.name);
       setPhonePrefix(defaultCountry.prefix);
+
+      // Send webhook when form opens
+      fetch("https://webhook.sesotec.com.ec/webhook/abre-form-america", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          evento: "formulario_abierto",
+          timestamp: new Date().toISOString(),
+          combo: comboLabel,
+          total_usd: total,
+          moneda: currency.code,
+          relay: addRelay,
+          url: window.location.href,
+          userAgent: navigator.userAgent,
+        }),
+      }).catch(() => { /* silently fail */ });
     }
-  }, [open, currency]);
+  }, [open, currency, comboLabel, total, addRelay]);
 
   const selectedPrefixCountry = COUNTRIES.find(c => c.prefix === phonePrefix);
   const formattedTotal = formatPrice(total, currency);
