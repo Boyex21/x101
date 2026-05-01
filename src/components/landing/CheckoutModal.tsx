@@ -79,6 +79,10 @@ const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayL
           relay: addRelay,
           url: window.location.href,
           userAgent: navigator.userAgent,
+          pais: geoData?.countryName || "Desconocido",
+          codigo_pais: geoData?.countryCode || "",
+          ciudad: geoData?.city || "",
+          region: geoData?.region || "",
         }),
       }).catch(() => { /* silently fail */ });
     }
