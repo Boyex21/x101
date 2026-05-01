@@ -5,6 +5,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
 import { type Currency, formatPrice } from "@/lib/currencies";
+import { type GeoResult } from "@/lib/geolocation";
 
 const WA_NUMBER = "593981624431";
 
@@ -16,6 +17,7 @@ interface CheckoutModalProps {
   addRelay: boolean;
   relayLabel: string;
   currency: Currency;
+  geoData?: GeoResult | null;
 }
 
 const COUNTRIES = [
@@ -44,7 +46,7 @@ const getDefaultCountry = (currency: Currency) => {
   return match || COUNTRIES[0]; // default Ecuador
 };
 
-const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayLabel, currency }: CheckoutModalProps) => {
+const CheckoutModal = ({ open, onOpenChange, comboLabel, total, addRelay, relayLabel, currency, geoData }: CheckoutModalProps) => {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [direccion, setDireccion] = useState("");
