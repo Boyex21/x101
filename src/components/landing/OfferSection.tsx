@@ -25,6 +25,8 @@ interface OfferSectionProps {
   initialCurrency?: Currency;
 }
 
+const WA_NUMBER = "593981624431";
+
 const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, onExternalCheckoutChange, initialCurrency }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
@@ -282,6 +284,17 @@ const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, o
           {selectedCombo === "duo" && !addRelay && "2x GPS x101 · 1 año de servicio c/u · envío incluido"}
           {selectedCombo === "duo" && addRelay && `2x GPS ${fp(250)} + 2x Módulo cortacorriente ${fp(60)} (instalación no incluida)`}
         </p>
+
+        {/* Direct WhatsApp CTA for doubts */}
+        <button
+          onClick={() => {
+            const message = "Hola, me interesa el GPS America x101 pero aún tengo algunas dudas. ¿Podrían ayudarme por este medio?";
+            window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(message)}`, "_blank", "noopener,noreferrer");
+          }}
+          className="w-full mt-4 py-3 px-4 rounded-xl border-2 border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors text-sm font-semibold text-primary flex items-center justify-center gap-2"
+        >
+          💬 ¿Tienes dudas? Habla con un asesor por WhatsApp
+        </button>
 
         <CheckoutModal
           open={showCheckout}
