@@ -13,20 +13,22 @@ import ServicePlansSection from "@/components/landing/ServicePlansSection";
 import FranchiseSection from "@/components/landing/FranchiseSection";
 import FloatingCTA from "@/components/landing/FloatingCTA";
 import { type Currency, CURRENCIES } from "@/lib/currencies";
-import { detectCurrencyByIP } from "@/lib/geolocation";
+import { detectCurrencyByIP, type GeoResult } from "@/lib/geolocation";
 
 const Index = () => {
   const [currency, setCurrency] = useState<Currency>(CURRENCIES[0]);
   const [total, setTotal] = useState(139);
   const [openCheckout, setOpenCheckout] = useState(false);
   const [geoCurrencyDetected, setGeoCurrencyDetected] = useState(false);
+  const [geoData, setGeoData] = useState<GeoResult | null>(null);
 
   // Auto-detect currency by IP on first load
   useEffect(() => {
     if (!geoCurrencyDetected) {
-      detectCurrencyByIP().then((detected) => {
-        if (detected) {
-          setCurrency(detected);
+      detectCurrencyByIP().then((result) => {
+        if (result) {
+          setCurrency(result.currency);
+          setGeoData(result);
           setGeoCurrencyDetected(true);
         }
       });
@@ -54,6 +56,7 @@ const Index = () => {
         externalCheckoutOpen={openCheckout}
         onExternalCheckoutChange={setOpenCheckout}
         initialCurrency={currency}
+        geoData={geoData}
       />
       <ServicePlansSection currency={currency} />
       <UrgencySection />
