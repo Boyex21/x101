@@ -22,13 +22,21 @@ interface OfferSectionProps {
   onCurrencyChange?: (currency: Currency) => void;
   externalCheckoutOpen?: boolean;
   onExternalCheckoutChange?: (open: boolean) => void;
+  initialCurrency?: Currency;
 }
 
-const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, onExternalCheckoutChange }: OfferSectionProps) => {
+const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, onExternalCheckoutChange, initialCurrency }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
   const [showCheckout, setShowCheckout] = useState(false);
   const [currency, setCurrency] = useState<Currency>(CURRENCIES[0]);
+
+  // Sync currency from parent (geo-detection)
+  useEffect(() => {
+    if (initialCurrency) {
+      setCurrency(initialCurrency);
+    }
+  }, [initialCurrency]);
 
   // Sync external checkout open state
   useEffect(() => {
