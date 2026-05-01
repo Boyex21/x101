@@ -4,6 +4,7 @@ import { Check, X, Truck, Bluetooth, Wrench, Plus, AlertCircle, Gift, Calendar }
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import CheckoutModal from "./CheckoutModal";
 import { CURRENCIES, type Currency, formatPrice } from "@/lib/currencies";
+import { type GeoResult } from "@/lib/geolocation";
 
 const included = [
   "GPS vehicular Plug & Play",
@@ -23,11 +24,12 @@ interface OfferSectionProps {
   externalCheckoutOpen?: boolean;
   onExternalCheckoutChange?: (open: boolean) => void;
   initialCurrency?: Currency;
+  geoData?: GeoResult | null;
 }
 
 const WA_NUMBER = "593981624431";
 
-const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, onExternalCheckoutChange, initialCurrency }: OfferSectionProps) => {
+const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, onExternalCheckoutChange, initialCurrency, geoData }: OfferSectionProps) => {
   const [addRelay, setAddRelay] = useState(false);
   const [selectedCombo, setSelectedCombo] = useState<ComboType>("single");
   const [showCheckout, setShowCheckout] = useState(false);
@@ -304,6 +306,7 @@ const OfferSection = ({ onPriceChange, onCurrencyChange, externalCheckoutOpen, o
           addRelay={addRelay}
           relayLabel={selectedCombo === "duo" ? `2x Módulo cortacorriente inalámbrico (${fp(60)})` : `Módulo cortacorriente inalámbrico (${fp(30)})`}
           currency={currency}
+          geoData={geoData}
         />
       </motion.div>
     </section>
