@@ -1,8 +1,7 @@
-// NocoDB API Service
-// Configure these after connecting your DB to NocoDB
+// NocoDB API Service — Connected to america_x101
 
-const NOCODB_BASE_URL = import.meta.env.VITE_NOCODB_BASE_URL || "";
-const NOCODB_API_TOKEN = import.meta.env.VITE_NOCODB_API_TOKEN || "";
+const NOCODB_BASE_URL = "https://sesotecndb.sesotec.com.ec";
+const NOCODB_API_TOKEN = "8uN5KZLCfCMSxnC9YYkcIFZ0v_pIE-AuqOeq30L_";
 
 const headers = () => ({
   "xc-token": NOCODB_API_TOKEN,
@@ -50,14 +49,15 @@ async function nocoDelete(table: string, id: number): Promise<void> {
   if (!res.ok) throw new Error(`NocoDB error: ${res.status}`);
 }
 
-// Placeholder table paths — update after NocoDB setup
-// Format: "PROJECT_NAME/TABLE_NAME"
+// Table paths for america_x101
+// NocoDB v2 data API: /api/v2/meta/bases/{baseId} for meta
+// Data rows: /api/v1/db/data/noco/{orgName}/{baseName}/{tableName}
 const TABLES = {
-  plans: "default/plans",
-  resellers: "default/resellers",
-  accounts: "default/reseller_accounts",
-  analytics: "default/reseller_analytics",
-  adminUsers: "default/admin_users",
+  plans: "noco/america_x101/plans",
+  resellers: "noco/america_x101/resellers",
+  accounts: "noco/america_x101/reseller_accounts",
+  analytics: "noco/america_x101/reseller_analytics",
+  adminUsers: "noco/america_x101/admin_users",
 };
 
 export const nocoService = {
