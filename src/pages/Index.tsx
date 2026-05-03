@@ -12,6 +12,7 @@ import TrustSection from "@/components/landing/TrustSection";
 import ServicePlansSection from "@/components/landing/ServicePlansSection";
 import FranchiseSection from "@/components/landing/FranchiseSection";
 import FloatingCTA from "@/components/landing/FloatingCTA";
+import Footer from "@/components/landing/Footer";
 import { type Currency, CURRENCIES } from "@/lib/currencies";
 import { detectCurrencyByIP, type GeoResult } from "@/lib/geolocation";
 
@@ -63,6 +64,7 @@ const Index = () => {
       <TrustSection />
       <FranchiseSection />
       <FloatingCTA onBuyClick={handleFloatingCTAClick} total={total} currency={currency} />
+      <Footer />
     </main>
   );
 };
