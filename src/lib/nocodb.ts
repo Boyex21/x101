@@ -4,7 +4,7 @@ const NOCODB_BASE_URL = "https://sesotecndb.sesotec.com.ec";
 const NOCODB_API_TOKEN = "8uN5KZLCfCMSxnC9YYkcIFZ0v_pIE-AuqOeq30L_";
 
 const headers = () => ({
-  "xc-auth": NOCODB_API_TOKEN,
+  "xc-token": NOCODB_API_TOKEN,
   "Content-Type": "application/json",
 });
 
