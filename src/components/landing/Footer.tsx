@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-muted/30 border-t py-6 px-4 text-center">
+    <footer className="bg-muted/30 border-t py-6 pb-24 px-4 text-center">
       <p className="text-xs text-muted-foreground/50">
         © {new Date().getFullYear()} X101 — Todos los derechos reservados
         <span className="mx-2">·</span>
