@@ -75,6 +75,7 @@ export const nocoService = {
   getAccounts: (params?: Record<string, string>) => nocoGet(TABLES.accounts, params),
   createAccount: (data: Record<string, unknown>) => nocoPost(TABLES.accounts, data),
   updateAccount: (id: number, data: Record<string, unknown>) => nocoPatch(TABLES.accounts, id, data),
+  deleteAccount: (id: number) => nocoDelete(TABLES.accounts, id),
 
   // Analytics
   getAnalytics: (params?: Record<string, string>) => nocoGet(TABLES.analytics, params),
