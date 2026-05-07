@@ -1,24 +1,21 @@
 
-## Cambio requerido
+## CRUD de Cuentas de Resellers
 
-Actualizar `src/lib/nocodb.ts` para usar el formato correcto de la API v2 de NocoDB.
+Implementar la gestión completa de cuentas (clientes de cada reseller) en el panel admin, siguiendo el mismo patrón ya usado en `ResellersPage.tsx`.
 
-### Problema actual
-El servicio usa rutas v1 inexistentes: `/api/v1/db/data/noco/america_x101/{tableName}`
+### Cambios
 
-### Corrección
-Cambiar todas las rutas a formato v2: `/api/v2/tables/{tableId}/records`
+**1. `src/pages/admin/AccountsPage.tsx`** — Reescribir con CRUD completo:
+- Listar cuentas desde NocoDB (`mv5wvscqqe6nirj`) con tarjetas que muestren nombre del cliente, tipo de cuenta, status y reseller asociado
+- Botón "Nueva Cuenta" que abre un dialog con formulario: reseller (selector), client_name, client_email, client_phone, account_type (single/duo/2years/relay), status (active/pending/expired), start_date, end_date, notes
+- Editar y eliminar cuentas existentes con los mismos dialogs de confirmación usados en Resellers
+- Cargar la lista de resellers para el selector del formulario
+- Badge de color según status (active=verde, pending=amarillo, expired=rojo)
 
-Table IDs:
-- admin_users: `mw9w68mptm2jltt`
-- plans: `mk1ucvwftlns1t0`
-- resellers: `m6wex13dk8rscz5`
-- reseller_accounts: `mv5wvscqqe6nirj`
-- reseller_analytics: `mbchtse0ra1km57`
+**2. `src/lib/nocodb.ts`** — Ya tiene `getAccounts`, `createAccount`, `updateAccount`. Agregar:
+- `deleteAccount(id)` — falta en el servicio actual
 
-### Cambios técnicos en `src/lib/nocodb.ts`
-
-1. Actualizar las funciones `nocoGet`, `nocoPost`, `nocoPatch`, `nocoDelete` para construir URLs con el formato `/api/v2/tables/{tableId}/records`
-2. Actualizar el mapa `TABLES` con los IDs reales
-3. Ajustar las operaciones individuales (GET by ID usa `/{recordId}` en vez de query params)
-4. Adaptar la respuesta paginada al formato v2 de NocoDB (campos `list` y `pageInfo`)
+### Detalles técnicos
+- Usa los mismos componentes UI (Dialog, AlertDialog, Badge, Button, Input, Select) que ResellersPage
+- Campos del formulario mapeados a la tabla: reseller_id, client_name, client_email, client_phone, account_type, status, start_date, end_date, notes
+- Filtro opcional por reseller usando query param `where`
